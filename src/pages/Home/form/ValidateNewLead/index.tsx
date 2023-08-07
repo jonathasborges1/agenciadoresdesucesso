@@ -2,13 +2,14 @@ import * as Yup from 'yup';
 import React, { useEffect } from "react";
 import { Formik, Form } from "formik";
 
-import { Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { Grid, LinearProgress, Typography } from "@mui/material";
 
 import TextFieldPhone from "@components/TextFieldPhone";
 import TextFieldCustom from "@components/TextFieldCustom";
 
 import { IMailchimpLead, MailchimpStatusEnum } from "@modules/mailchimp/IMailchimp";
 import useDialogAlert from "@hooks/useDialogAlert";
+import ButtonPulse from '@components/ButtonPulse';
 
 
 const validationSchema = Yup.object().shape({
@@ -83,107 +84,100 @@ const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onVal
         email: "",
         phone: "",
       }}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
       {({ values, errors, touched, handleChange, handleBlur }) => (
         <Form>
+          {status === MailchimpStatusEnum.SENDING ? (<LinearProgress />)
+            :
+            status === MailchimpStatusEnum.SUCCESS ?
+                (
+                  <div>
+                    <Typography variant='body1' sx={{ color: "#000" }}>Parabéns <b>{values.name || "!"} </b>  </Typography>
+                    <ButtonPulse
+                      variant={"contained"}
+                      onClick={() => handleWhatsAppButtonClick(values.name)}
+                      sx={{ borderRadius: 3, backgroundColor: "#fde910", padding: 1.8 }}
+                    >
+                      <Typography variant={"h3"} sx={{ color: "#000", fontWeight: { xs: 800, lg: 700 }, fontSize: { xs: 14, lg: 21 }, }}>
+                        Entrar no Grupo do Whatsapp
+                      </Typography>
+                    </ButtonPulse>
+                  </div>
+                )
+              :
+                (
+                  <Grid container gap={2}>
+                    {/* NOME */}
+                    <Grid item xs={12}>
 
-        {status === MailchimpStatusEnum.SENDING ? (<LinearProgress/>) 
-        :
-          status === MailchimpStatusEnum.SUCCESS ? 
-            (
-              <div>
-                <Typography variant='body1' sx={{color: "#000"}} >Parabéns <b>{values.name || "!"} </b>  </Typography>
-                <Button 
-                  variant={"contained"}
-                  onClick={()=>handleWhatsAppButtonClick(values.name)} 
-                  sx={{borderRadius: 3, backgroundColor: "#fde910" , padding: 1.8 }}  
-                >
-                  <Typography variant={"h3"} sx={{color: "#000" ,fontWeight: {xs: 800, lg:700}, fontSize: {xs:14,lg:21},   }} >
-                    Entrar no Grupo do Whatsapp
-                  </Typography>
-                </Button>
-              </div>
-            ) 
-          : 
-          (
-            <Grid container gap={2} >
-            {/* NOME */}
-                        <Grid item xs={12} >
-            
-                           <TextFieldCustom
-                              type={"text"}
-                              name={"name"}
-                              label={"Nome Completo"}
-                              value={values.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              helperText={touched.name && errors.name}
-                              error={touched.name && Boolean(errors.name)}
-                              fullWidth
-                              // required
-                           />
-            
-                        </Grid>
-            
-            {/* EMAIL */}
-                        <Grid item xs={12}>
-                           <TextFieldCustom
-                                 type={"email"}
-                                 name={"email"}
-                                 label={"Email"}
-                                 value={values.email}
-                                 onChange={handleChange}
-                                 onBlur={handleBlur}
-                                 helperText={touched.email && errors.email}
-                                 error={touched.email && Boolean(errors.email)}
-                                 fullWidth
-                                 // required
-                              />
-                        </Grid>
-            
-            {/* TELEFONE */}
-                        <Grid item xs={12}>
-                           <TextFieldPhone
-                              type={"text"}
-                              name={"phone"}
-                              label={"Telefone"}
-                              value={values.phone}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              helperText={ touched.phone && errors.phone}
-                              error={ touched.phone && Boolean(errors.phone)}
-                              fullWidth
-                              // required
-                           />
-                           
-                        </Grid>
-                        
-            {/* BOTAO DE SUBMISSAO */}
-                        <Grid item xs={12}>
-            
-                           <Button
-                              type={"submit"}
-                              variant={"contained"}
-                              sx={{
-                                 border: "0px solid black",
-                                 fontWeight: 700,
-                                 background: "#90ee90", color: "#fff", padding: 1.5, pl: 4, pr: 4, fontSize: "1rem", 
-                                 "&:hover": {backgroundColor: '#90ee90', color: '#000'}
-                              }}
-                           >
-                              <Typography variant="h3" sx={{fontWeight: 700, color: "#000", fontSize: {xs: 20, lg:24} }}>
-                                 Quero Participar
-                                 {/* Enviar */}
-                              </Typography>
-                              
-                           </Button>
-            
-                        </Grid>
-            </Grid>
-          )
-        }
+                      <TextFieldCustom
+                        type={"text"}
+                        name={"name"}
+                        label={"Nome Completo"}
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={touched.name && errors.name}
+                        error={touched.name && Boolean(errors.name)}
+                        fullWidth />
+
+                    </Grid>
+
+                    {/* EMAIL */}
+                    <Grid item xs={12}>
+                      <TextFieldCustom
+                        type={"email"}
+                        name={"email"}
+                        label={"Email"}
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={touched.email && errors.email}
+                        error={touched.email && Boolean(errors.email)}
+                        fullWidth />
+                    </Grid>
+
+                    {/* TELEFONE */}
+                    <Grid item xs={12}>
+                      <TextFieldPhone
+                        type={"text"}
+                        name={"phone"}
+                        label={"Telefone"}
+                        value={values.phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={touched.phone && errors.phone}
+                        error={touched.phone && Boolean(errors.phone)}
+                        fullWidth />
+
+                    </Grid>
+
+                    {/* BOTAO DE SUBMISSAO */}
+                    <Grid item xs={12}>
+
+                      <ButtonPulse
+                        type={"submit"}
+                        variant={"contained"}
+                        sx={{
+                          border: "0px solid black",
+                          fontWeight: 700,
+                          background: "#90ee90", color: "#fff", pt: 2, pb:2, pl: 4.2, pr: 4.2, fontSize: "1rem",
+                          "&:hover": { backgroundColor: '#90ee90', color: '#000' }
+                        }}
+                      >
+                        <Typography variant="h3" sx={{ fontWeight: 700, color: "#000", fontSize: { xs: 23, lg: 24 } }}>
+                          Quero Participar
+                        </Typography>
+
+                      </ButtonPulse>
+
+                    </Grid>
+
+                  </Grid>
+                )
+              }
         </Form>
       )}
     </Formik>

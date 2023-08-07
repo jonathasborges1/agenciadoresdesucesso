@@ -46,7 +46,7 @@ const Home: React.FC = () => {
 
         <Grid item xs={12} md={5} lg={5} sx={{border: "1px solid white", borderRadius:4, background: "#fff", padding: {xs:1,lg:5} }}>
 
-          <Grid container justifyContent={"center"} sx={{border: "0px solid red", textAlign:"center", gap:{xs:1,lg:0}}} >
+          <Grid container justifyContent={"center"} sx={{border: "0px solid red", textAlign:"center", gap:{xs:0,lg:0}}} >
             
             <Grid item xs={12}>
               <Typography variant='h1' sx={{color: "#000", fontWeight:700, fontSize: {xs: 20, lg:28}, paddingTop: {xs:2}}}>
