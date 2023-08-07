@@ -9,8 +9,8 @@ const Home: React.FC = () => {
   
   const data = {
     titleSection: "Tenha liberdade geográfica, ou trabalhe no conforto  da sua casa, faturando 5 a 10k sendo um agenciador de viagem.",
-    subTitleSection: "Vou te ensina passo a passo no grupo exclusivo via zoom nos dias 17,22 e 29 de agosto",
-    TitleForm: "Aulas ao vivo dia 17,22 e 29 de agosto as 20h",
+    subTitleSection: "Vou te ensina passo a passo no grupo exclusivo via zoom nos dias 17, 22 e 29 de agosto",
+    TitleForm: "Aulas ao vivo dia 17, 22 e 29 de agosto as 20h",
     footerForm: "Seus Dados Estao Protegidos", // Ao continuar você está aceitando nossa política de privacidade e termos de uso, como cookies e recebimento de mensagens.
   }
 
