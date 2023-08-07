@@ -1,0 +1,29 @@
+name: Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install --progress=false --legacy-peer-deps
+
+      - name: Build and Deploy
+        run: |
+          npm run build # Seu comando para construir o aplicativo
+          npm install -g @cloudflare/wrangler # Instala o Wrangler para implantação no Cloudflare Workers
+          wrangler config # Configure o Wrangler com suas credenciais
+          wrangler publish # Implante o aplicativo no Cloudflare Pages
