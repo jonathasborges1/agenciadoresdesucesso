@@ -39,7 +39,9 @@ const Home: React.FC = () => {
 
               <Grid container justifyContent={"center"} sx={{ border:"0px solid red"}} gap={1}>
                 <Grid item sx={{width: {xs:"280px", lg: "280px"}, height: {xs:"280px", lg:"300px"},border:"0px solid red"}}>
-                  <MagicCard src={expertPhoto} ></MagicCard>
+                  <MagicCard >
+                    <img src={expertPhoto} alt="Agenciador de Viagem - Vinicius Guerra" width={"100%"} height={"100%"} style={{borderRadius:10 }}/>
+                  </MagicCard>
                 </Grid>
 
                 <Grid item xs={12} textAlign={"center"}> 
