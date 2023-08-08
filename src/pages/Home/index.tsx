@@ -1,17 +1,15 @@
 import React from 'react';
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Grid, Typography, } from '@mui/material';
 
 import MailchimpFormSubscribe from '@pages/Home/form/MailchimpFormSubscribe';
 
 const Home: React.FC = () => {
-
-  const theme = useTheme();
   
   const data = {
-    titleSection: "Tenha liberdade geográfica, ou trabalhe no conforto  da sua casa, faturando 5 a 10k sendo um agenciador de viagem.",
-    subTitleSection: "Vou te ensina passo a passo no grupo exclusivo via zoom nos dias 17, 22 e 29 de agosto",
+    titleSection: "Tenha liberdade geográfica, ou Trabalhe no conforto da sua casa, faturando 5 a 10k sendo um agenciador de viagem.",
+    subTitleSection: "Vou te ensinar passo a passo no grupo exclusivo via zoom nos dias 17, 22 e 29 de agosto",
     TitleForm: "Aulas ao vivo dia 17, 22 e 29 de agosto as 20h",
-    footerForm: "Seus Dados Estao Protegidos", // Ao continuar você está aceitando nossa política de privacidade e termos de uso, como cookies e recebimento de mensagens.
+    footerForm: "Seus dados estão protegidos", // Ao continuar você está aceitando nossa política de privacidade e termos de uso, como cookies e recebimento de mensagens.
   }
 
   return (

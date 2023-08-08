@@ -36,7 +36,6 @@ interface ValidateNewLeadProps{
    onValidated: (data: any) => void;
 }
 
-
 const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onValidated}) => {
 
   const [ payloadSendEmailElastic, setPayloadSendEmailElastic ] = useState<IMailchimpLead>(leadInit);
@@ -89,12 +88,12 @@ const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onVal
   };
 
   const handleWhatsAppButtonClick = (name: string) => {
-    const phoneNumber = '+5511948831501'; // Substitua pelo número real, incluindo código de país
-    const message = encodeURIComponent(`Olá, eu sou o ${name}! e Estou interessado em participar do grupo agenciador de viagem.`); // Mensagem pré-definida
+    // const phoneNumber = '+5511948831501'; // Substitua pelo número real, incluindo código de país
+    // const message = encodeURIComponent(`Olá, eu sou o ${name}! e Estou interessado em participar do grupo agenciador de viagem.`); // Mensagem pré-definida
 
-    window.location.href = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+    // window.location.href = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+    window.location.href = "https://chat.whatsapp.com/HnR67LlKfiGHILt7fa1oed"
   };
-
 
   return (
     <Formik
