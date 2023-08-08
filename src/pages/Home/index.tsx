@@ -1,7 +1,10 @@
 import React from 'react';
-import { Grid, Typography, } from '@mui/material';
+import { Grid, Paper, Typography, } from '@mui/material';
 
 import MailchimpFormSubscribe from '@pages/Home/form/MailchimpFormSubscribe';
+
+import expertPhoto from '../../assets/images/agenciador-de-viagem-vinicius.jpeg';
+import MagicCard from '@components/MagicCard';
 
 const Home: React.FC = () => {
   
@@ -32,11 +35,33 @@ const Home: React.FC = () => {
               </Typography>
             </Grid>
 
+            <Grid item xs={12} sx={{ border:"0px solid black",  }}>
+
+              <Grid container justifyContent={"center"} sx={{ border:"0px solid red"}} gap={1}>
+                <Grid item sx={{width: {xs:"280px", lg: "280px"}, height: {xs:"280px", lg:"300px"},border:"0px solid red"}}>
+                  <MagicCard src={expertPhoto} ></MagicCard>
+                </Grid>
+
+                <Grid item xs={12} textAlign={"center"}> 
+                  <Typography sx={{fontSize: {xs:10}}} >
+                      <b style={{color: "greenyellow"}} >Vinicius Guerra</b>  - Mentor Agenciador 10x 
+                    </Typography>
+                </Grid>
+
+              </Grid>
+
+              <Grid container justifyContent={"center"}>
+
+              </Grid>
+
+            </Grid>
+
             <Grid item xs={12}>
               <Typography variant={"h3"} sx={{fontWeight:500, fontSize: {xs: 20, lg:24}}} >
                 {data.subTitleSection}
               </Typography>
             </Grid>
+
 
           </Grid>
 
