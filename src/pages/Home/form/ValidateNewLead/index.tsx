@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 
 import { Grid, LinearProgress, Typography } from "@mui/material";
@@ -10,7 +10,19 @@ import TextFieldCustom from "@components/TextFieldCustom";
 import { IMailchimpLead, MailchimpStatusEnum } from "@modules/mailchimp/IMailchimp";
 import useDialogAlert from "@hooks/useDialogAlert";
 import ButtonPulse from '@components/ButtonPulse';
+import { sendEmailElastic } from '@modules/smtp/sendEmail';
 
+export interface IFormikValues {
+  name: string;
+  email: string;
+  phone: string;
+}
+
+const leadInit: IMailchimpLead = {
+  FNAME: "",
+  EMAIL: "",
+  PHONE: "",
+}
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("O nome é obrigatório"),
@@ -24,12 +36,17 @@ interface ValidateNewLeadProps{
    onValidated: (data: any) => void;
 }
 
+
 const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onValidated}) => {
 
+  const [ payloadSendEmailElastic, setPayloadSendEmailElastic ] = useState<IMailchimpLead>(leadInit);
   const { snackbar } = useDialogAlert();
 
   const successMessage = (status: string) => {
     if(status === MailchimpStatusEnum.SUCCESS){
+      // Rotina para disparar email automatico
+      sendEmailElastic(payloadSendEmailElastic);
+
       console.info("[INFO]:[successMessage] ", message);
       snackbar({
         message: `Usuario Cadastrado com Successo!e!`,
@@ -64,6 +81,7 @@ const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onVal
       }
 
       onValidated(payload);
+      setPayloadSendEmailElastic(payload);
 
     } catch (error) {
        console.info("[INFO]:[handleSubmit][ERROR] ", error);
@@ -77,6 +95,7 @@ const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onVal
     window.location.href = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
   };
 
+
   return (
     <Formik
       initialValues={{
@@ -89,6 +108,7 @@ const ValidateNewLead: React.FC<ValidateNewLeadProps> = ({status, message, onVal
     >
       {({ values, errors, touched, handleChange, handleBlur }) => (
         <Form>
+
           {status === MailchimpStatusEnum.SENDING ? (<LinearProgress />)
             :
             status === MailchimpStatusEnum.SUCCESS ?
